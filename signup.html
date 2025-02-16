@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - StyleU</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js"></script>
+    <script>
+        // TODO: Replace with your Firebase project configuration
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        function signUp() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    alert('Sign Up Successful');
+                })
+                .catch((error) => {
+                    console.error('Error during sign up:', error);
+                    alert(error.message);
+                });
+        }
+
+        function googleSignIn() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider)
+                .then((result) => {
+                    alert('Google Sign-In Successful');
+                })
+                .catch((error) => {
+                    console.error('Error during Google sign-in:', error);
+                    alert(error.message);
+                });
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>StyleU</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#">Shop</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="signup.html">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="signup">
+        <div class="signup-image">
+            <img src="Img_resources/Fashion-E-commerce-Website-StyleU-by-Foysal-on-Dribbble (3).png" alt="Sign Up Image">
+        </div>
+        <div class="signup-form">
+            <h2>Create an Account</h2>
+            <form onsubmit="signUp(); return false;">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                
+                <button type="submit">Sign Up</button>
+            </form>
+            <button onclick="googleSignIn()">Sign Up with Google</button>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2025 StyleU. All rights reserved.</p>
+    </footer>
+</body>
+</html>
